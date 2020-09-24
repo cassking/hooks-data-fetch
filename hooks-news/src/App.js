@@ -49,7 +49,6 @@ export default function App() {
     } catch (err) {
       setError(err)
     }
-    
     setLoading(false);
 
     }
@@ -63,19 +62,24 @@ export default function App() {
  }
 
   return(
-    <React.Fragment>
+    <div className="container bg-purple-lightest max-w-md mx-auto p-4 m-2 shadow-lg rounded">
+    <h1 className="text-grey-darkest font-thin">News Aggregator</h1>
     <form
+      className="mb-2"
       onSubmit={handleSearch}>
     <input
       type="text"
       onChange={ (event) => setQuery(event.target.value)}
       value={query}
       ref={searchInputRef}
+      className="border p-1 rounded"
     />
     <button
+      className="bg-orange rounded m-1 p-1"
       type="submit">Search
       </button>
       <button
+      className="bg-teal text-white p-1 rounded"
       type="button"
       onClick={handleClearSearch}>Clear search
       </button>
@@ -90,6 +94,6 @@ export default function App() {
       </ul>)
     }
     {error && <div>{error.message}</div>}
-    </React.Fragment>
+    </div>
   )
 }
