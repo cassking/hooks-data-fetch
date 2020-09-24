@@ -44,18 +44,23 @@ export default function App() {
       );// async returns a promise
     setResults(response.data.hits)
     }
-
+ const handleSearch = (event) => {
+   event.preventDefault();
+   getResultsCleanup()
+ }
 
   return(
     <React.Fragment>
+    <form
+      onSubmit={handleSearch}>
     <input
       type="text"
       onChange={ (event) => setQuery(event.target.value)}
       value={query}
     />
     <button
-      type="button"
-      onClick={getResultsCleanup}>Search</button>
+      type="submit">Search</button>
+    </form>
     <ul>
       {results.map( (result => (
         <li key={result.objectID}><a href={result.url}>{result.title}</a></li>
