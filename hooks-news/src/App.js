@@ -4,7 +4,10 @@ import axios from 'axios';
 export default function App() {
 
   const [results, setResults]= useState([]);
-  const [query, setQuery] = useState('cycling')
+  const [query, setQuery] = useState('cycling');
+  const[loading, setLoading] = useState(false);
+  const [error, setError] = useState(null)
+
   const searchInputRef = useRef() // no need to pass anything to useRef
   // useEffect( () => {
   //   // how to get api data from external source, so side effect
@@ -26,8 +29,6 @@ export default function App() {
     // and empty array ensures runs onComponentDidmount and unmount
     // but if we want this to update based on a certain value changing
     //im this case query we add query to array, pass as dependency
-
-
     //ALTERNATIVE
     // instaed of dependency in array
     // add button so user can choose when to update page
@@ -37,12 +38,20 @@ export default function App() {
       },
     []);
   const getResultsCleanup = async () => {
-    //becasue async returns a promise
+    setLoading(true)
+    try {
+//becasue async returns a promise
     // and useEffect must return a cleanup fctn or nothing
     const response = await axios.get(
       `//hn.algolia.com/api/v1/search?query=${query}`
       );// async returns a promise
-    setResults(response.data.hits)
+    setResults(response.data.hits);
+    } catch (err) {
+      setError(err)
+    }
+    
+    setLoading(false);
+
     }
  const handleSearch = (event) => {
    event.preventDefault();
@@ -71,11 +80,16 @@ export default function App() {
       onClick={handleClearSearch}>Clear search
       </button>
     </form>
+    {loading ? (
+      <div>Loading results...</div>
+    ) : (
     <ul>
       {results.map( (result => (
         <li key={result.objectID}><a href={result.url}>{result.title}</a></li>
       )))}
-      </ul>
+      </ul>)
+    }
+    {error && <div>{error.message}</div>}
     </React.Fragment>
   )
 }
