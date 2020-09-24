@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 export default function App() {
 
   const [results, setResults]= useState([]);
   const [query, setQuery] = useState('cycling')
-
+  const searchInputRef = useRef() // no need to pass anything to useRef
   // useEffect( () => {
   //   // how to get api data from external source, so side effect
   //   // promise based
@@ -48,6 +48,10 @@ export default function App() {
    event.preventDefault();
    getResultsCleanup()
  }
+ const handleClearSearch = () => {
+  setQuery("")
+  searchInputRef.current.focus()
+ }
 
   return(
     <React.Fragment>
@@ -57,9 +61,15 @@ export default function App() {
       type="text"
       onChange={ (event) => setQuery(event.target.value)}
       value={query}
+      ref={searchInputRef}
     />
     <button
-      type="submit">Search</button>
+      type="submit">Search
+      </button>
+      <button
+      type="button"
+      onClick={handleClearSearch}>Clear search
+      </button>
     </form>
     <ul>
       {results.map( (result => (
