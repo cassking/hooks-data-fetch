@@ -85,11 +85,11 @@ export default function App() {
       </button>
     </form>
     {loading ? (
-      <div>Loading results...</div>
+      <div className="text-orange-100">Loading results...</div>
     ) : (
-    <ul>
+    <ul className="list-reset leading-normal">
       {results.map( (result => (
-        <li key={result.objectID}><a href={result.url}>{result.title}</a></li>
+        <li className="text-indigo-900 hover:text-indigo-300" key={result.objectID}><a href={result.url}>{result.title}</a></li>
       )))}
       </ul>)
     }
