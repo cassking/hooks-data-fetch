@@ -62,8 +62,8 @@ export default function App() {
  }
 
   return(
-    <div className="container bg-purple-lightest max-w-md mx-auto p-4 m-2 shadow-lg rounded">
-    <h1 className="text-grey-darkest font-thin">News Aggregator</h1>
+    <div className="container bg-blue-100 max-w-md mx-auto p-4 m-2 shadow-lg rounded">
+    <h1 className="text-grey-darkest font-bold">News Aggregator</h1>
     <form
       className="mb-2"
       onSubmit={handleSearch}>
@@ -72,14 +72,14 @@ export default function App() {
       onChange={ (event) => setQuery(event.target.value)}
       value={query}
       ref={searchInputRef}
-      className="border p-1 rounded"
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
     />
     <button
-      className="bg-orange rounded m-1 p-1"
+      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
       type="submit">Search
       </button>
       <button
-      className="bg-teal text-white p-1 rounded"
+      className="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2"
       type="button"
       onClick={handleClearSearch}>Clear search
       </button>
